@@ -68,20 +68,20 @@ else:
 	#																   and capitalized
 	packName = urllib.parse.urlparse(args.url).hostname.split('.')[-2].capitalize();
 
+# find paths to the base instances
 if args.packdir:
 	packDir = args.packdir;
 else:
+	if args.instancedir:
+		instanceDir = args.instancedir;
+	else:
+		instanceDir = os.path.join(args.dir, "Instances");
+	
 	packDir = os.path.join(instanceDir, packName);
 
 if os.path.isdir(packDir):
 	print("Found (presumably) installed instance at {}".format(packDir));
 else:
-	# find paths to the base instances
-	if args.instancedir:
-		instanceDir = args.instancedir;
-	else:
-		instanceDir = os.path.join(args.dir, "Instances");
-
 	# check if we actually have any instances
 	vanillaDir = os.path.join(instanceDir, "VanillaMinecraft");
 	if not os.path.isdir(vanillaDir):
