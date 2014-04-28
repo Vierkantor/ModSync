@@ -70,7 +70,7 @@ else:
 
 if args.packdir:
 	packDir = args.packdir;
-else;
+else:
 	packDir = os.path.join(instanceDir, packName);
 
 if os.path.isdir(packDir):
