@@ -59,21 +59,6 @@ parser.add_argument("-y", "--alwaysyes", action="store_const", const=True, defau
 
 args = parser.parse_args(sys.argv[1:]);
 
-# find paths to the base instances
-if args.instancedir:
-	instanceDir = args.instancedir;
-else:
-	instanceDir = os.path.join(args.dir, "Instances");
-
-# check if we actually have any instances
-vanillaDir = os.path.join(instanceDir, "VanillaMinecraft");
-if not os.path.isdir(vanillaDir):
-	print("Could not find a basic Minecraft instance here ({}).".format(instanceDir));
-	print("Make sure you have one installed and add in the right Minecraft Forge version too.");
-	sys.exit(1);
-
-print("Found vanilla minecraft installation at {}.".format(vanillaDir));
-
 # check for an already installed instance
 if args.name:
 	packName = name;
@@ -85,8 +70,23 @@ else:
 
 packDir = os.path.join(instanceDir, packName);
 if os.path.isdir(packDir):
-	print("Found installed instance at {}".format(packDir));
+	print("Found (presumably) installed instance at {}".format(packDir));
 else:
+	# find paths to the base instances
+	if args.instancedir:
+		instanceDir = args.instancedir;
+	else:
+		instanceDir = os.path.join(args.dir, "Instances");
+
+	# check if we actually have any instances
+	vanillaDir = os.path.join(instanceDir, "VanillaMinecraft");
+	if not os.path.isdir(vanillaDir):
+		print("Could not find a basic Minecraft instance here ({}).".format(instanceDir));
+		print("Make sure you have one installed and add in the right Minecraft Forge version too.");
+		sys.exit(1);
+
+	print("Found vanilla minecraft installation at {}.".format(vanillaDir));
+	
 	print("No installed instance found at {}.".format(packDir));
 	if not prompt("Create new one?", "Yn"):
 		print("Could not find a modded Minecraft instance.");
