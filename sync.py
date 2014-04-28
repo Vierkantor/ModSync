@@ -68,7 +68,11 @@ else:
 	#																   and capitalized
 	packName = urllib.parse.urlparse(args.url).hostname.split('.')[-2].capitalize();
 
-packDir = os.path.join(instanceDir, packName);
+if args.packdir:
+	packDir = args.packdir;
+else;
+	packDir = os.path.join(instanceDir, packName);
+
 if os.path.isdir(packDir):
 	print("Found (presumably) installed instance at {}".format(packDir));
 else:
