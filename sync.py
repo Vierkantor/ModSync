@@ -61,7 +61,7 @@ args = parser.parse_args(sys.argv[1:]);
 
 # check for an already installed instance
 if args.name:
-	packName = name;
+	packName = args.name;
 else:
 	# get the name from the domain name of the mods.json
 	#													without the tld 
